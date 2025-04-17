@@ -1,0 +1,93 @@
+﻿@model Pregunta2.Models.Tutor
+
+@{
+    ViewBag.Title = "Registro de Tutores";
+}
+<h2>Registro de Tutores</h2>
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-success">@ViewBag.Mensaje</div>
+    <div>
+        Total de Tutores registrados: @ViewBag.TotalTutores
+    </div>
+}
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.DNI)
+            @Html.TextBoxFor(model => model.DNI, new { @class = "form-control col-md-10", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre)
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control col-md-10", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Apellidos)
+            @Html.TextBoxFor(model => model.Apellidos, new { @class = "form-control col-md-10", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control col-md-10", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Telefono)
+            @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control col-md-10", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SueldoBasico)
+            @Html.TextBoxFor(model => model.SueldoBasico, new { @class = "form-control col-md-10", type = "number", step = "0.01", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CantidadHorasAsesoria)
+            @Html.TextBoxFor(model => model.CantidadHorasAsesoria, new { @class = "form-control col-md-10", type = "number", required = "required" })
+        </div>
+
+        <div class="form-group">
+            <label>¿Es Supervisor?</label>
+            <select asp-for="Supervisor" class="form-control" required>
+                <option value="false">No</option>
+                <option value="true">Sí</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Monto")
+            @Html.TextBox("Monto", @ViewBag.Monto as string, htmlAttributes: new { @class = "form-control col-md-10" })
+        </div>
+
+        <div class="form-group">
+            @Html.ActionLink("Nuevo", "FrmTutor", null)
+            <input type="button" value="Calcular Monto" class="btn btn-secondary" onclick="calcularMonto()" />
+            <input type="submit" value="Guardar Tutor" class="btn btn-primary" />
+            <a href="@Url.Action("ListaTutores", "Tutor")" class="btn btn-info">Ver Lista de Tutores</a>
+        </div>
+
+    </div>
+}
+@section Scripts {
+    <script>
+        function calcularMonto() {
+            // Obtener los valores del formulario
+            var sueldoBasico = parseFloat(document.getElementById("SueldoBasico").value) || 0;
+            var horasAsesoria = parseInt(document.getElementById("CantidadHorasAsesoria").value) || 0;
+            var esSupervisor = document.querySelector('select[name="Supervisor"]').value === "true";
+
+            // Calcular monto
+            var adicional = horasAsesoria * 25;
+            var incentivo = esSupervisor ? 200 : 0;
+            var montoTotal = sueldoBasico + adicional + incentivo;
+
+            // Mostrar el monto en el campo correspondiente
+            document.getElementsByName("Monto")[0].value = montoTotal.toFixed(2);
+        }
+    </script>
+    }

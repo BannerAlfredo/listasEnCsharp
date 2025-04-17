@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Pregunta2.Models.Tutor>
+
+@{
+    ViewBag.Title = "Lista de Tutores";
+}
+
+<h2>Lista de Tutores</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>SueldoBasico</th>
+            <th>CantidadHorasAsesoria</th>
+            <th>Supervisor</th>
+            <th>Monto</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tutor in Model)
+        {
+            <tr>
+                <th>@tutor.DNI</th>
+                <td>@tutor.Nombre</td>
+                <td>@tutor.Apellidos</td>
+                <td>@tutor.Email</td>
+                <td>@tutor.Telefono</td>
+                <td>@tutor.SueldoBasico</td>
+                <td>@tutor.CantidadHorasAsesoria</td>
+                <td>@tutor.Supervisor</td>
+                <td>@tutor.Monto()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Tutor" asp-action="FrmTutor" class="btn btn-primary">Agregar Nuevo Tutor</a>

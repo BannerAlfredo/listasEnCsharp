@@ -1,0 +1,47 @@
+﻿@model Pregunta2.Models.Profesor
+
+@{
+    ViewBag.Title = "Registro de Profesores";
+}
+
+<h2>Registro de Profesores</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            @Html.LabelFor(model => model.DNI)
+            @Html.TextBoxFor(model => model.DNI, new { @class = "form-control col-md-10", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre)
+            @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control col-md-10", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Apellidos)
+            @Html.TextBoxFor(model => model.Apellidos, new { @class = "form-control col-md-10", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control col-md-10", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Telefono)
+            @Html.TextBoxFor(model => model.Telefono, new { @class = "form-control col-md-10", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SueldoBasico)
+            @Html.TextBoxFor(model => model.SueldoBasico, new { @class = "form-control col-md-10", type = "number", step = "0.01", required = "required" })
+        </div>
+
+        <div class="form-group">
+            @Html.ActionLink("Nuevo", "FrmProfesor", null, new { @class = "btn btn-secondary" })
+            <input type="submit" value="Enviar" class="btn btn-primary" />
+        </div>
+    </div>
+}
